@@ -1,0 +1,24 @@
+{
+  "name": "secure-nats",
+  "version": "1.0.0",
+  "description": "Secure NATS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antonioaguilar/secure-nats.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antonioaguilar/secure-nats/issues"
+  },
+  "homepage": "https://github.com/antonioaguilar/secure-nats#readme",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "nats": "^1.2.2"
+  }
+}
