@@ -3,6 +3,7 @@ var fs = require('fs');
 var NATS = require('nats');
 
 var nats = NATS.connect({
+  verbose: true,
   json: true, 
   name: 'subscriber', 
   // token: 'GX5YF3L7DL90SP7PLFOUP9',

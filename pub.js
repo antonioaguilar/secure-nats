@@ -2,7 +2,8 @@ var _ = require('lodash');
 var fs = require('fs');
 var NATS = require('nats');
 
-var nats = NATS.connect({
+var nc = NATS.connect({
+  verbose: true,
   json: true, 
   name: 'publisher', 
   // token: 'GX5YF3L7DL90SP7PLFOUP9',
@@ -15,13 +16,29 @@ var nats = NATS.connect({
   } 
 });
 
-nats.on('connect', () => {
-  console.log('Publisher connected to NATS');
+nc.on('connect', () => {
+  console.log('Connected to NATS');
 });
 
 setInterval(() => {
   let subject = 'dashboard';
   let tab = _.random(1,5);
   console.log(`Sending message to: ${subject}.${tab}`);
-  nats.publish(`${subject}.${tab}`, { tab: tab, epoch: new Date().toISOString() });
+  nc.publish(`${subject}.${tab}`, { tab: tab, epoch: new Date().toISOString() });
 }, 2000);
+
+nc.on('disconnect', function() {
+	console.log('disconnect');
+});
+
+nc.on('reconnecting', function() {
+	console.log('reconnecting');
+});
+
+nc.on('reconnect', function(nc) {
+	console.log('reconnect');
+});
+
+nc.on('close', function() {
+	console.log('close');
+});
