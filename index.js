@@ -1,7 +1,9 @@
 const pkg = require('./package')
+const fs = require('fs');
 const _ = require('lodash');
 const net = require('net');
 const http = require('http');
+const https = require('https');
 const nuid = require('nuid').next();
 const sockjs = require('sockjs');
 const jwt = require('jsonwebtoken');
@@ -12,7 +14,11 @@ const CR_LF = '\r\n';
 const nats_port = 4222;
 const nats_host = '0.0.0.0';
 
-let server = http.createServer();
+// let server = http.createServer();
+let server = https.createServer({
+  cert: fs.readFileSync('./cert.pem'),
+  key: fs.readFileSync('./key.pem')
+});
 let socket = sockjs.createServer();
 
 const server_info = {
@@ -57,16 +63,6 @@ let eventLoop = async (connection) => {
       console.log(`${connection.pre} - +OK PONG`);
     }
 
-    if (data.match(/SUB+/)) {
-      connection.write('+OK' + CR_LF);
-      console.log(`${connection.pre} - +OK SUB`);
-    }
-
-    if (data.match(/PUB+/)) {
-      connection.write('+OK' + CR_LF + 'MSG' + CR_LF);
-      console.log(`${connection.pre} - +OK PUB`);
-    }
-
     if (data.match(/CONNECT+/)) {
       try {
         var req = JSON.parse( data.substring( data.lastIndexOf('{'), data.lastIndexOf('}') + 1 ) );
@@ -82,7 +78,6 @@ let eventLoop = async (connection) => {
 
         tcp.connect(nats_port, nats_host, () => {
           console.log(`${connection.pre} - Connected to NATS server`);
-          // console.log('CONNECT ' + JSON.stringify(req, null, 0) + CR_LF );
           tcp.write('CONNECT ' + JSON.stringify(req, null, 0) + CR_LF );
           connection.nats = true;
         });

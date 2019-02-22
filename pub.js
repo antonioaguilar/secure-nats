@@ -25,7 +25,7 @@ setInterval(() => {
   let tab = _.random(1,5);
   console.log(`Sending message to: ${subject}.${tab}`);
   nc.publish(`${subject}.${tab}`, { tab: tab, epoch: new Date().toISOString() });
-}, 2000);
+}, 1000);
 
 nc.on('disconnect', function() {
 	console.log('disconnect');
