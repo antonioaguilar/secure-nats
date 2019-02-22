@@ -6,14 +6,14 @@ var nc = NATS.connect({
   verbose: true,
   json: true, 
   name: 'publisher', 
-  // token: 'GX5YF3L7DL90SP7PLFOUP9',
-  user: 'joe',
-  pass: 'GX5YF3L7DL90SP7PLFOUP9',
-  tls: {
-    key: fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    rejectUnauthorized: false
-  } 
+  token: 'GX5YF3L7DL90SP7PLFOUP9',
+  // user: 'joe',
+  // pass: 'GX5YF3L7DL90SP7PLFOUP9',
+  // tls: {
+  //   key: fs.readFileSync('./key.pem'),
+  //   cert: fs.readFileSync('./cert.pem'),
+  //   rejectUnauthorized: false
+  // } 
 });
 
 nc.on('connect', () => {

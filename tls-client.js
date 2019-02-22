@@ -35,10 +35,3 @@ socket.on('data', (data) => {
 socket.on('end', () => {
   console.log('server end connection');
 });
-
-curl -v \
-  --tlsv1.2 \
-  --ciphers ecdhe_rsa_aes_128_sha \
-  --cacert ./cert.pem \
-  --cert ./cert.pem \
-  --key ./key.pem http://0.0.0.0:4222
