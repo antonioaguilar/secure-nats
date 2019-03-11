@@ -22,7 +22,7 @@ nc.on('connect', () => {
 
 setInterval(() => {
   let subject = 'dashboard';
-  let tab = _.random(1,5);
+  let tab = _.random(0,20);
   console.log(`Sending message to: ${subject}.${tab}`);
   nc.publish(`${subject}.${tab}`, { tab: tab, epoch: new Date().toISOString() });
 }, 1000);
